@@ -8,7 +8,7 @@ var querystring = require('querystring');
 
 /* GET home page.*/
 router.get('/', function(req, res, next) {
-  res.render('option', { title: 'MAPPINGS' });
+  res.render('todel', { title: 'MAPPINGS' });
 });
 
 /* GET MAPPINGS FORM (index)*/
@@ -21,6 +21,10 @@ router.get('/index2.ejs', function(req, res, next) {
   res.render('index2', { title: 'POST' });
 });
 
+/* HOME PAGE */
+router.get('/todel.ejs', function(req, res, next) {
+  res.render('todel', { title: 'HOME' });
+});
 
 /* FOR POST REQUEST */
 router.get('/api', (req, res)=>{
