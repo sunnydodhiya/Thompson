@@ -8,8 +8,19 @@ var querystring = require('querystring');
 
 /* GET home page.*/
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'MAPPINGS' });
+  res.render('option', { title: 'MAPPINGS' });
 });
+
+/* GET MAPPINGS FORM (index)*/
+router.get('/index.ejs', function(req, res, next) {
+  res.render('index', { title: 'GET' });
+});
+
+/* POST MAPPINGS FORM (index2)*/
+router.get('/index2.ejs', function(req, res, next) {
+  res.render('index2', { title: 'POST' });
+});
+
 
 /* FOR POST REQUEST */
 router.get('/api', (req, res)=>{
@@ -80,8 +91,8 @@ router.get('/api/get' , (req, res)=>{
           }
             data.push(temp)      
         } 
-     res.send(body)
-        //res.send({data : data}) 
+     //res.send(body)
+        res.send({data : data}) 
     }
 console.log("Basic " + btoa(username + ":" + password));
 
