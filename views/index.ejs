@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MAP</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="http://127.0.0.1:3000/api/get" method="get">
+        <fieldset>
+            <label for="name">UserName:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your UserName" />
+        </br></br>
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" placeholder="Enter Password" />
+          </br></br>
+            <label for="xmppId">XMPP ID:</label>
+            <input  id="xmpp" name="xmpp" placeholder="Enter your XMPP ID"></input>
+          </br></br>
+            <label for="number">RC NUMBER:</label>
+            <input id="number" name = "number" placeholder="Enter your RC Number"></input>
+          </br></br>
+            <input type="submit" value="MAP" />
+        </fieldset>
+    </form>
+  </body>
+</html>
+
+
+
+
+<!-- 
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>MAP</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="http://127.0.0.1:3000/api/get" method="GET">
+        <fieldset>
+            <label for="name">UserName:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your UserName" />
+        </br></br>
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" placeholder="Enter Password" />
+          </br></br>
+            <label for="xmppId">XMPP ID:</label>
+            <input  id="xmpp" name="xmpp" placeholder="Enter your XMPP ID"></input>
+          </br></br>
+            <label for="number">RC NUMBER:</label>
+            <input id="number" name = "number" placeholder="Enter your RC Number"></input>
+          </br></br>
+            <input type="submit" value="MAP" />
+        </fieldset>
+    </form>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+  var data = {
+    "domain": "mydomain.com",
+    "jabberAddress": req.query.xmpp,
+    "externalAddress": req.query.number
+    }
+  var url = 'https://cloud.restcomm.com/xmpp/xmppMappings';
+  var username = req.query.name;
+  var password = req.query.password;
+
+  request.post( {
+    url : url,
+    body : data,
+    json : true,
+    method : 'POST',
+    headers: {
+      "Authorization": "Basic " + btoa(username + ":" + password),
+      "content-type": "application/json",
+    }
+
+  } , (err , doc,body)=>{
+
+    if ( err ){
+      res.send( err )
+    }else{
+      res.send(doc)
+    }
+  } )
+
+} ) -->
