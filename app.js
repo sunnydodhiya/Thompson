@@ -3,14 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//var angular = require('angular');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-//var bodyParser = require('body-parser');
+//var myUsersRouter = require('./routes/myUsers');
+/*  *///var bodyParser = require('body-parser'); */
 
 var app = express();
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,9 +24,10 @@ app.use(cookieParser());
 //app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
-
+// app.use('/angular', express.static(__dirname + '/node_modules/angular/dist/')); 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+//app.use('/myUsers',myUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var btoa = require('btoa');
+const ejsLint = require('ejs-lint');
 var axios = require('axios');
 var querystring = require('querystring');
+//var angular = require('angular');
 
 
-/* GET home page.*/
+/* GET home page changed from todel to index.      DELETEREQ*/
 router.get('/', function(req, res, next) {
-  res.render('todel', { title: 'MAPPINGS' });
+  res.render('index', { title: 'MAPPINGS' });
 });
 
 /* GET MAPPINGS FORM (index)*/
@@ -16,7 +18,11 @@ router.get('/index.ejs', function(req, res, next) {
   res.render('index', { title: 'GET' });
 });
 
-/* POST MAPPINGS FORM (index2)*/
+/* POST MAPPINGS FORM (index2 from get page)*/
+router.get('/api/index2.ejs', function(req, res, next) {
+  res.render('index2', { title: 'POST' });
+});
+ 
 router.get('/index2.ejs', function(req, res, next) {
   res.render('index2', { title: 'POST' });
 });
@@ -48,13 +54,21 @@ router.get('/api', (req, res)=>{
       "content-type": "application/json",
     }
 
-  } , (err , doc,body)=>{
+  } , (err , doc)=>{
 
     if ( err ){
-      res.send( err )
-    }else{
-      res.send(doc)
+      res.render('error', {
+        message: err.message, 
+        error: err
+      //res.send( err )
+      });
     }
+    else{
+     // res.send(doc.body)
+     var data = doc.body;
+     res.render('ress2', {mappings:data})
+    }
+    console.log(data);
   } )
 
 } )
@@ -80,30 +94,90 @@ router.get('/api/get' , (req, res)=>{
   } , (err , doc)=>{
 
     if ( err ){
-      res.send( err )
+      //res.send( err )
+      res.render('error', {
+        message: err.message, 
+        error: err
+      //res.send( err )
+      });
+      //render('error', err)
     }
       else{
         
-         var body = doc.body;
+
+         var myObj = doc.body;
+         var body = JSON.parse(myObj);
           console.log(body)
         var data = [];
         for (a in body){
          val =body[a];
           var temp={
             id : val.id,
-            jabberAddress : val.jabberAddress  
+            jabberAddress : val.jabberAddress,
+            externalAddress : val.externalAddress
           }
-            data.push(temp)      
+            data.push(temp);
         } 
-     //res.send(body)
-        res.send({data : data}) 
+    // res.send(body)
+       //res.send({mappings: data})
+       //res.send({mapping1 : data[0],  mapping2 : data[1]}) 
+        res.render('ress', {mappings:data})
+
     }
 console.log("Basic " + btoa(username + ":" + password));
 
   } )
 })
 
+
+
+/* FOR DELETE REQUEST */
+router.get('/api/delete', (req, res)=>{
+
+  var data = {
+  /*   "domain": "mydomain.com",
+    "jabberAddress": req.query.xmpp,
+    "externalAddress": req.query.number */
+    
+    }
+    var data = req.query.id;
+  var url = 'https://cloud.restcomm.com/xmpp/xmppMappings/' + data;
+  var username = req.query.name;
+  var password = req.query.password;
+ console.log(url);
+
+  request.delete( {
+    url : url,
+    //body : data,
+    //json : true,
+    method : 'DELETE',
+    headers: {
+      "Authorization": "Basic " + btoa(username + ":" + password),
+      //"content-type": "application/json",
+    }
+
+  } , (err , doc)=>{
+
+    if ( err ){
+      res.render('error', {
+        message: err.message, 
+        error: err
+      //res.send( err )
+      });
+    }
+    else{
+      res.send(doc)
+     // res.send(doc.body)
+     //var data = doc.body;
+     //res.render('ress2', {mappings:data})
+    }
+    console.log(data);
+  } )
+
+} )
+
 module.exports = router;
+
 
 
 
@@ -150,3 +224,26 @@ var password = "eef96b9afe3b9ebcbf051d8adf715943"; */
 
 
 
+
+/*       134 134 134 134
+else{
+        
+
+  var myObj = doc.body;
+  var body = JSON.parse(myObj);
+   console.log(body)
+ var data = [];
+ for (a in body){
+  val =body[a];
+   var temp={
+     id : val.id,
+     jabberAddress : val.jabberAddress  
+   }
+     data.push(temp);
+ } 
+// res.send(body)
+res.send({mappings: data}) */
+//res.send({mapping1 : data[0],  mapping2 : data[1]}) 
+
+
+/* {"mappings":[{"id":"XM35718ebf536545f2a4eefdbb37a24415","jabberAddress":"joe@uc1.mycompany.com"},{"id":"XM5514cb720d7f49a9a66a6442f79bbfaf","jabberAddress":"abhayani@xmpp.xyz"},{"id":"XM6ec5ff363a6c401cb7c33dc506110e85","jabberAddress":"sunnyd@xmpp.xyz"},{"id":"XMc9f13378afaf41fcba81309292ed60e5","jabberAddress":"draperbuilding_2221@ums.veracitynetworks.com"}]} */
