@@ -38,9 +38,19 @@
     </head>
     <body>
         <div class="w3-container"><br>
-            <input type="text"  class="w3-input w3-border" id="myInput" onkeyup="myFunction()" placeholder="Search for jabberAddress.." style="font-size: 18pt; height: 30px;" title="Type in jabberAddress" size="80" maxlength="11">
+           
        <br>
+       <table>
+          <tr>
+              <td>     </td>
+             <td> <!-- <input type="text"  class="w3-input w3-border" id="myInput" onkeyup="myFunction()" placeholder="Search for ID.." style="font-size: 18pt; height: 30px;" title="Type in jabberAddress" size="20" maxlength="10"> --></td> 
+              <td> <input type="text"  class="w3-input w3-border" id="myInput2" onkeyup="myFunction2()" placeholder="Search for jabberAddress.." style="font-size: 18pt; height: 30px;" title="Type in jabberAddress" size="25" maxlength="25"></td> 
+             <!--  <td> <input type="text"  class="w3-input w3-border" id="myInput3" onkeyup="myFunction3()" placeholder="Search for externalAddress.." style="font-size: 18pt; height: 30px;" title="Type in jabberAddress" size="20" maxlength="11"></td>  -->
+   
+            </tr> 
+       </table>
        <br> <table class="w3-table w3-bordered w3-striped"  id="myTable">
+      
             <tr>
               <th>no</th><th>id</th><th>jabberAddress</th><th>EXTERNAL ADDRESS</th><th>Action</th>
             </tr>
@@ -53,18 +63,18 @@
                 <td><%= mappings[i].externalAddress %></td>
                 
                 <td>
-                    <button class="w3-btn w3-blue w3-ripple "id="myB" onclick="clic(mappings[i].jabberAddress,mappings[i].externalAddress)">&#9998; Edit</button>
+                    <button  style="background: #517fff" type ="button" class="use-address" >&#9998; Edit</button>
                     <button class="w3-btn w3-blue w3-ripple "id="myB2">&#9998; Delete</button>
               </tr>    
             <% } %>
         </table>
         <br>
 <button id= "newmap" class="w3-btn w3-blue w3-ripple">&#9998; Create New Mapping</button>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   document.getElementById("newmap").onclick = function () {
       location.href = "./index2.ejs";
   };
-</script> 
+</script>  -->
 <!-- <form >
   </form> -->
   </div>
@@ -72,7 +82,7 @@
   <div id="div1"></div>
 
 <script>
-    function myFunction() {
+ /*    function myFunction() {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
@@ -89,7 +99,26 @@
           }
         }       
       }
+    } */
+    function myFunction2() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput2");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
     }
+
     </script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!--      <script>   $(function(){
@@ -102,16 +131,46 @@
     <br>
     <script type="text/javascript">
 
-      $(document).ready(function(){
+/*       $(document).ready(function(){
           $("#frm").hide();
-          $("#myB").click(function(e) {
+          $("#myB").click(function getele(e) {
               $("#frm").show();
+              var a =  e.id;
+              console.log(a);
               //$("#btn").hide();
               $('#xmpp').val($('table td:eq(2)').html());
         $('#number').val($('table td:eq(3)').html());
           });
       });
+  </script> 
+    <br>
+   <!--  //test case -->
+    <script type="text/javascript">
+
+
+$(document).ready(function(){
+        $("#frm").hide();
+$(".use-address").click(function() {
+  $("#frm").show();
+    var $row = $(this).closest("tr");    // Find the row
+   /*  var $tds = $row.find("td"); */
+     var $tds = $row.find("td:nth-child(3)");
+     var $tds2 = $row.find("td:nth-child(4)");
+    
+    $.each($tds, function() {
+        console.log($(this).text());
+        $('#xmpp').val($(this).text());
+    
+      });
+    $.each($tds2, function() {
+
+        console.log($(this).text());
+        $('#number').val($(this).text());
+    });
+});
+});
   </script>
+
     <br>
     <script type="text/javascript">
 
@@ -126,27 +185,24 @@
           });
       });
   </script>
-<!-- <form class="editt" action="http://127.0.0.1:3000/api" method="get">
-    <label for="name">USERNAME:</label>
-    <input class="w3-input w3-border" type="text" id="name" class="name" name="name" placeholder="Enter your UserName" size="80" width="100"/>
-</br>
-    <label for="password">PASSWORD:</label>
-    <input class="w3-input w3-border" type="text" id="password" class="password" name="password" placeholder="Enter Password" size="81.5" width="100"/>
-  </br>
-    <label for="ID">XMPP ID:</label>
-     <input class="w3-input w3-border" type="text" name="sid" id="xmpp" class="xmpp"> <br/>
-     <label for="fname">JABBER ADDRESS:</label>
-   <input class="w3-input w3-border" type="text" name="fname" id="number" class="number"> <br/>
-    
-    <button id= "mpp" class="w3-btn w3-blue w3-ripple">&#9998; EDIT Mapping</button> -->
- <!--      <input type="submit" value="EDIT MAPPING" />
 
-    //</form> --> 
-  <!--   <script type="text/javascript">
-  document.getElementById("mpp").onclick = function () {
-      location.href = "./index2.ejs";
-  };
-  </script> -->
+<!-- for create new mapping -->
+<script type="text/javascript">
+
+  $(document).ready(function(req){
+      $("#frm").hide();
+      $("#newmap").click(function(e) {
+          $("#frm").show();
+          comsole.log(req.session.uname);
+          $('#name').val($(req.session.uname).text());
+          //$("#btn").hide();
+         /*  $('#id').val($('table td:eq(1)').html()); */
+   // $('#number').val($('table td:eq(3)').html());
+   
+      });
+  });
+</script>
+
 
 
   <div>

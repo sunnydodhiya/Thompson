@@ -76,6 +76,8 @@ router.get('/api', (req, res)=>{
 
 /* FOR GET REQUEST */
 router.get('/api/get' , (req, res)=>{
+   
+req.session.uname = req.query.name;
 
 //console.log(req.body.name);
   var username = req.query.name;
@@ -103,7 +105,7 @@ router.get('/api/get' , (req, res)=>{
       //render('error', err)
     }
       else{
-        
+        console.log(req.session.uname);
 
          var myObj = doc.body;
          var body = JSON.parse(myObj);
@@ -125,6 +127,7 @@ router.get('/api/get' , (req, res)=>{
 
     }
 console.log("Basic " + btoa(username + ":" + password));
+console.log(req.session.uname);
 
   } )
 })
